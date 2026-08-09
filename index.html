@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Icestock Sport Scoring System</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <header class="site-header">
+    <div class="header-content">
+      <div class="logo-section">
+        <div class="logo-mark"></div>
+        <h1>Icestock Scoring</h1>
+      </div>
+      <nav class="main-nav">
+        <button class="nav-btn active" data-view="competitions">Competitions</button>
+        <button class="nav-btn" data-view="live-scoring">Live Scoring</button>
+        <button class="nav-btn" data-view="results">Results</button>
+        <button class="nav-btn" data-view="rankings">Rankings</button>
+      </nav>
+    </div>
+  </header>
+
+  <main class="main-content">
+    <!-- Competitions View -->
+    <section class="view active" id="competitions-view">
+      <div class="view-header">
+        <h2>Active Competitions</h2>
+        <button class="btn-primary" id="new-competition-btn">
+          <span class="btn-icon">+</span>
+          New Competition
+        </button>
+      </div>
+
+      <div class="competitions-grid" id="competitions-list">
+        <!-- Populated by JavaScript -->
+      </div>
+    </section>
+
+    <!-- Live Scoring View -->
+    <section class="view" id="live-scoring-view">
+      <div class="view-header">
+        <h2>Live Scoring</h2>
+        <div class="discipline-selector">
+          <button class="discipline-btn active" data-discipline="team-game">Team Game</button>
+          <button class="discipline-btn" data-discipline="target-shooting">Target Shooting</button>
+          <button class="discipline-btn" data-discipline="distance">Distance</button>
+        </div>
+      </div>
+
+      <!-- Team Game Scoring -->
+      <div class="scoring-panel active" id="team-game-panel">
+        <div class="match-setup">
+          <div class="team-input">
+            <label>Team A</label>
+            <input type="text" id="teamA-name" placeholder="Enter team name">
+          </div>
+          <div class="vs-divider">VS</div>
+          <div class="team-input">
+            <label>Team B</label>
+            <input type="text" id="teamB-name" placeholder="Enter team name">
+          </div>
+        </div>
+
+        <div class="scoreboard">
+          <div class="team-score" id="teamA-score">
+            <h3 class="team-name">Team A</h3>
+            <div class="score-display">0</div>
+            <div class="round-scores" id="teamA-rounds"></div>
+          </div>
+          <div class="round-indicator">
+            <span class="label">Round</span>
+            <span class="current-round">1</span>
+            <span class="total-rounds">/ 6</span>
+          </div>
+          <div class="team-score" id="teamB-score">
+            <h3 class="team-name">Team B</h3>
+            <div class="score-display">0</div>
+            <div class="round-scores" id="teamB-rounds"></div>
+          </div>
+        </div>
+
+        <div class="round-controls">
+          <div class="stock-results">
+            <div class="team-stocks">
+              <h4>Team A Stocks</h4>
+              <div class="stock-inputs" id="teamA-stocks">
+                <input type="number" placeholder="Stock 1" min="0" max="10">
+                <input type="number" placeholder="Stock 2" min="0" max="10">
+                <input type="number" placeholder="Stock 3" min="0" max="10">
+                <input type="number" placeholder="Stock 4" min="0" max="10">
+              </div>
+            </div>
+            <div class="team-stocks">
+              <h4>Team B Stocks</h4>
+              <div class="stock-inputs" id="teamB-stocks">
+                <input type="number" placeholder="Stock 1" min="0" max="10">
+                <input type="number" placeholder="Stock 2" min="0" max="10">
+                <input type="number" placeholder="Stock 3" min="0" max="10">
+                <input type="number" placeholder="Stock 4" min="0" max="10">
+              </div>
+            </div>
+          </div>
+          <div class="action-buttons">
+            <button class="btn-secondary" id="calculate-round-btn">Calculate Round</button>
+            <button class="btn-primary" id="next-round-btn">Next Round</button>
+            <button class="btn-accent" id="finish-match-btn">Finish Match</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Target Shooting Scoring -->
+      <div class="scoring-panel" id="target-shooting-panel">
+        <div class="player-setup">
+          <label>Player/Team Name</label>
+          <input type="text" id="shooter-name" placeholder="Enter name">
+        </div>
+
+        <div class="target-rounds">
+          <div class="target-round">
+            <h4>Round 1: Center Rings</h4>
+            <div class="attempt-inputs">
+              <input type="number" class="attempt-score" placeholder="Attempt 1" min="0" max="10">
+              <input type="number" class="attempt-score" placeholder="Attempt 2" min="0" max="10">
+              <input type="number" class="attempt-score" placeholder="Attempt 3" min="0" max="10">
+              <input type="number" class="attempt-score" placeholder="Attempt 4" min="0" max="10">
+              <input type="number" class="attempt-score" placeholder="Attempt 5" min="0" max="10">
+              <input type="number" class="attempt-score" placeholder="Attempt 6" min="0" max="10">
+            </div>
+            <div class="round-total">Total: <span>0</span></div>
+          </div>
+
+          <div class="target-round">
+            <h4>Round 2: Knock Out Target</h4>
+            <div class="attempt-inputs">
+              <input type="number" class="attempt-score" placeholder="Attempt 1" min="0" max="10">
+              <input type="number" class="attempt-score" placeholder="Attempt 2" min="0" max="10">
+              <input type="number" class="attempt-score" placeholder="Attempt 3" min="0" max="10">
+              <input type="number" class="attempt-score" placeholder="Attempt 4" min="0" max="10">
+              <input type="number" class="attempt-score" placeholder="Attempt 5" min="0" max="10">
+              <input type="number" class="attempt-score" placeholder="Attempt 6" min="0" max="10">
+            </div>
+            <div class="round-total">Total: <span>0</span></div>
+          </div>
+
+          <div class="target-round">
+            <h4>Round 3: Left & Right Rear Rings</h4>
+            <div class="attempt-inputs">
+              <input type="number" class="attempt-score" placeholder="Attempt 1" min="0" max="10">
+              <input type="number" class="attempt-score" placeholder="Attempt 2" min="0" max="10">
+              <input type="number" class="attempt-score" placeholder="Attempt 3" min="0" max="10">
+              <input type="number" class="attempt-score" placeholder="Attempt 4" min="0" max="10">
+              <input type="number" class="attempt-score" placeholder="Attempt 5" min="0" max="10">
+              <input type="number" class="attempt-score" placeholder="Attempt 6" min="0" max="10">
+            </div>
+            <div class="round-total">Total: <span>0</span></div>
+          </div>
+
+          <div class="target-round">
+            <h4>Round 4: Combined Target & Position</h4>
+            <div class="attempt-inputs">
+              <input type="number" class="attempt-score" placeholder="Attempt 1" min="0" max="10">
+              <input type="number" class="attempt-score" placeholder="Attempt 2" min="0" max="10">
+              <input type="number" class="attempt-score" placeholder="Attempt 3" min="0" max="10">
+              <input type="number" class="attempt-score" placeholder="Attempt 4" min="0" max="10">
+              <input type="number" class="attempt-score" placeholder="Attempt 5" min="0" max="10">
+              <input type="number" class="attempt-score" placeholder="Attempt 6" min="0" max="10">
+            </div>
+            <div class="round-total">Total: <span>0</span></div>
+          </div>
+        </div>
+
+        <div class="final-score-display">
+          <h3>Total Score</h3>
+          <div class="total-score">0</div>
+          <span class="max-score">/ 240</span>
+        </div>
+
+        <div class="action-buttons">
+          <button class="btn-secondary" id="calculate-target-btn">Calculate Total</button>
+          <button class="btn-accent" id="save-target-btn">Save Result</button>
+        </div>
+      </div>
+
+      <!-- Distance Competition Scoring -->
+      <div class="scoring-panel" id="distance-panel">
+        <div class="player-setup">
+          <label>Player Name</label>
+          <input type="text" id="distance-player-name" placeholder="Enter name">
+        </div>
+
+        <div class="distance-attempts">
+          <h4>Five Attempts (meters)</h4>
+          <div class="distance-inputs">
+            <div class="distance-input-group">
+              <label>Attempt 1</label>
+              <input type="number" class="distance-value" placeholder="0.00" step="0.01" min="0">
+              <span class="unit">m</span>
+            </div>
+            <div class="distance-input-group">
+              <label>Attempt 2</label>
+              <input type="number" class="distance-value" placeholder="0.00" step="0.01" min="0">
+              <span class="unit">m</span>
+            </div>
+            <div class="distance-input-group">
+              <label>Attempt 3</label>
+              <input type="number" class="distance-value" placeholder="0.00" step="0.01" min="0">
+              <span class="unit">m</span>
+            </div>
+            <div class="distance-input-group">
+              <label>Attempt 4</label>
+              <input type="number" class="distance-value" placeholder="0.00" step="0.01" min="0">
+              <span class="unit">m</span>
+            </div>
+            <div class="distance-input-group">
+              <label>Attempt 5</label>
+              <input type="number" class="distance-value" placeholder="0.00" step="0.01" min="0">
+              <span class="unit">m</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="best-distance-display">
+          <h3>Best Distance</h3>
+          <div class="best-distance">0.00</div>
+          <span class="unit-label">meters</span>
+          <div class="world-record">World Record: 566.00m</div>
+        </div>
+
+        <div class="action-buttons">
+          <button class="btn-secondary" id="calculate-distance-btn">Calculate Best</button>
+          <button class="btn-accent" id="save-distance-btn">Save Result</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- Results View -->
+    <section class="view" id="results-view">
+      <div class="view-header">
+        <h2>Competition Results</h2>
+        <div class="filter-controls">
+          <select id="competition-filter">
+            <option value="all">All Competitions</option>
+          </select>
+          <select id="discipline-filter">
+            <option value="all">All Disciplines</option>
+            <option value="team-game">Team Game</option>
+            <option value="target-shooting">Target Shooting</option>
+            <option value="distance">Distance</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="results-grid" id="results-list">
+        <!-- Populated by JavaScript -->
+      </div>
+    </section>
+
+    <!-- Rankings View -->
+    <section class="view" id="rankings-view">
+      <div class="view-header">
+        <h2>Player & Team Rankings</h2>
+        <div class="ranking-tabs">
+          <button class="tab-btn active" data-rank="teams">Teams</button>
+          <button class="tab-btn" data-rank="players">Players</button>
+        </div>
+      </div>
+
+      <div class="rankings-table" id="rankings-table">
+        <!-- Populated by JavaScript -->
+      </div>
+    </section>
+  </main>
+
+  <!-- New Competition Modal -->
+  <div class="modal" id="new-competition-modal">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h3>Create New Competition</h3>
+        <button class="modal-close">&times;</button>
+      </div>
+      <div class="modal-body">
+        <div class="form-group">
+          <label>Competition Name</label>
+          <input type="text" id="comp-name" placeholder="e.g., Winter Championship 2026">
+        </div>
+        <div class="form-group">
+          <label>Location</label>
+          <input type="text" id="comp-location" placeholder="e.g., Innsbruck, Austria">
+        </div>
+        <div class="form-group">
+          <label>Start Date</label>
+          <input type="date" id="comp-date">
+        </div>
+        <div class="form-group">
+          <label>Discipline</label>
+          <select id="comp-discipline">
+            <option value="team-game">Team Game</option>
+            <option value="target-shooting">Target Shooting</option>
+            <option value="distance">Distance Competition</option>
+          </select>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button class="btn-secondary modal-cancel">Cancel</button>
+        <button class="btn-primary" id="create-competition-btn">Create Competition</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>
